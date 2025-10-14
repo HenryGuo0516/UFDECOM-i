@@ -2,11 +2,10 @@
 #Here are the instructions for use
 #Before compiling, You need to load the NVHPC so that you can use the NVFORTRAN compiler
 # For example,
-#export PATH=/opt/nvidia/hpc_sdk/Linux_x86_64/24.7/compilers/bin:$PATH
-#export LD_LIBRARY_PATH=/opt/nvidia/hpc_sdk/Linux_x86_64/24.7/compilers/lib:$LD_LIBRARY_PATH
-#export CPATH=/opt/nvidia/hpc_sdk/Linux_x86_64/24.7/compilers/include:$CPATH
+#export PATH=/opt/nvidia/hpc_sdk/Linux_x86_64/24.7/compilers/bin:$PATH;export LD_LIBRARY_PATH=/opt/nvidia/hpc_sdk/Linux_x86_64/24.7/compilers/lib:$LD_LIBRARY_PATH;export CPATH=/opt/nvidia/hpc_sdk/Linux_x86_64/24.7/compilers/include:$CPATH
 
 
+# In the code, the source code for GPUA-UFDECOM-i is provided. After compilation, the executable program `UFDE_G` will be generated. The `input` and `namelist` files serve as input files.
 
 # ------------------ COMPILE ----------------------------
 #When compiling GPUA-UFDECOM-i on NVFORTRAN 25.3, set FC = nvfortran -Mpreprocess -stdpar=gpu -acc=gpu -gpu=mem:separate;  
