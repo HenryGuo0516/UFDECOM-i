@@ -1,4 +1,3 @@
-
 # This program is the source code of parallel UFDECOM-i based on DO CONCURRENT and OpenACC(GPUA-UFDECOM-i)
 #Here are the instructions for use
 #Before compiling, You need to load the NVHPC so that you can use the NVFORTRAN compiler
@@ -70,4 +69,3 @@ nvidia-smi > out
 
 ./UFDE_G
 #bsub <run.sh; run.sh is to run the script, you can copy the above required options to it.
-
