@@ -1,0 +1,98 @@
+-----------CASE NAME----------------------------------------------------
+CASENAME  TEST     !
+
+-----------OS PARAMETER-------------------------------------------------
+OSTYPE  linux     !"windows" or "linux"
+
+-----------PARALLEL SETTINGS--------------------------------------------
+NTHREADS  1    !NUMBER OF THREADS FOR OpenMP PARALLEL COMPUTING
+
+-----------COORDINATE SELCETION-----------------------------------------
+COORD	 XY	    ! 'BL' or 'XY'
+
+-----------INPUT AND OUTPUT DIRECTORIES---------------------------------
+IN_DIRE  input    !input directory
+OUT_DIRE output  !output directory
+
+-----------TIME SETTINGS:-----------------------------------------------
+DTITYPE variable  !"CONSTANT" FOR FIXED TIME STEP, "VARIABLE" FOR VARIABLE TIME STEP. IF "VARIABLE", TIME STEP IS DETERMINED BY CFL CIRTERION AUTOMATICLY.
+DTI 	20.00	    ! IF "CONSTANT", DTI IS TIME STEP; IF 'VARIABLE',DTI IS THE MAX TIME STEP.
+FACTOR	0.8	    ! FACTOR DETERMINES THE TIMESTEP IN THE MODE OF VARIABLE TIMESTEP.
+IRAMP    500	    ! UNIT: TIME STEP, RAMP THE BOUNDARY FORCES
+T_END    92   ! UNIT: DAY, NUMERICAL COMPUTATION TIME 
+IYEAR	2022       ! INITIAL DATE: YEAR
+IMONTH	8	    ! INITIAL DATE: MONTH	
+IDAY0	1	    ! INITIAL DATE: DAY
+TIDE_LAG 0.1	    ! UNIT: DAY, TIDE LAG AT OPEN BOUNDARY
+
+----------HOT START PARAMETERS------------------------------------------
+RESTAR  cold    ! "cold" FOR COLD START, "hot" FOR HOT START.
+N_RST   500    ! UNIT: NSTEP, OUTPUT INTERVAL OF RESTART FILE.
+RST_SPEC	5	    ! UNIT: DAY, AT WHEN A SPECIFIED RESTART FILE IS OUTPUT
+RST_ARCH    10.         ! RESTART FILE ARCHIVING PERIOD, UNIT: DAY 
+
+----------ELEVATION CONDITION AT OPEN BOUNDARY--------------------------
+OPTEBC harmconst   !"harmconst" or "data", elevation open boundary condition input type.
+EL_RISEUP 0      !cm, sea level rise up.
+
+----------SALINITY CALCULATION PARAMETERS-------------------------------
+S_BEG 	 2.	    !UNIT: HOUR, TIME WHEN SALINITY CALCULATION BEGINS 
+BPG_BEG	 2.	 !UNIT: HOUR, TIME WHEN BAROCLINIC GRADIENT PRESSURE CALCULATION BEGINS
+
+----------TEMPERATURE CALCULATION PARAMETERS----------------------------
+T_BEG	 2.       !UNIT: HOUR, TIME WHEN TEMPERATURE CALCULATION BEGINS
+
+----------MATERIAL CALCULATION PARAMETERS----------------------------
+M_BEG	  983.       !UNIT: HOUR, TIME WHEN MATERIAL CALCULATION BEGINS
+
+----------PARAMETERS CONTROLLING SEDIMENT SIMULATION--------------------
+SED_BEG	 0.	   ! UNIT: HOUR
+F_SD50	 2.0E-5      ! MEDIAN DIAMETER
+F_ALFA  0.67       ! SETTLEMENT PROBABILITY
+F_MCSXS 3.5E-5      ! SCOUR COEFFICIENT
+BED_BEG  0.	!UNIT: HOUR
+
+----------BOTTOM FRICTION PARAMETERS------------------------------------
+BFRIC   0.0020
+Z0B     0.0001
+
+----------HORIZONTAL MIXING AND ADVECTION PARAMETERS--------------------
+HORCON	0.05
+HPRNU	1.000
+ADVECT	non-linear
+
+----------VERTICAL MIXXING PARAMETERS-----------------------------------
+UMOL    0.00001
+VPRNU   1.000
+
+----------STANDARD LEVEL DEPTHS-----------------------------------------
+IKSL   10
+DPTHSL	0.0	-10.0	-20.0	-30.0	-50.0	-70.0	-100.0	-125.0	-150.0	-200.0
+
+----------DRY/WET PARAMENTER--------------------------------------------
+DMIN	0.2	!CRITICAL DEPTH FOR WED/DRY JUDGEMENT
+
+----------TIMESERIES OUTPUT PARAMETERS----------------------------------
+N_OPT	600	    !UNIT: SECOND, INTERVAL FOR TIME SERIES OUTPUT. ESTABLISH "TSR" AND "SEC" FILE IN INPUT DIRECTORY.
+
+----------FIELD DISTRIBUTION OUTPUT PARAMETERS--------------------------
+N_FPT  3600     !UNIT: SECOND, INTERVAL FOR FIELD DISTRIBUTION OUTPUT
+FPTSTAR  30.	      !UNIT: DAY, START TIME OF FIELD OUTPUT
+FPTEND   160.	      !UNIT: DAY, END TIME OF FIELD OUTPUT
+
+---------RESIDUAL CURRENT, FLUX AND FLUX ANALYSIS PARAMETER-------------
+JHM	0	
+HIST&AVGE	899.68 78.34 1107.5 73.32  1235.84 79.34 !UNIT: HOUR. FIRST NUMBER: END TIME FOR TIME AVERAGING. SECOND: INTERVAL.
+
+----------ONLINE VIEW PARAMETERS-------------------------------
+CHC_VIEW  	SALINITY
+LAYER   1
+
+----------LAGRANGE TRACKING PARAMETERS-------------------------
+NDT	 2         !interval for Lag. Tracking, even number.
+I_LAG	10        !output interval for Lag. Tracking, even number.
+
+----------TONG HUA SHI JIAN-------------------------
+LOG_TH .FALSE. 
+DATE 2024 1 22 !YEAR MONTH DAY
+TIME 00 00 00   !HOUR MINUTE SECOND
