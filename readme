@@ -1,1 +1,39 @@
+This repository contains the source code and build configuration for UFDECOM-i (Unstructured Quadrilateral grid Finite-Differencing Estuarine and Coastal Ocean Model), 
+including serial, multi-core CPU, and GPU-parallel implementations based on standard Fortran language-level parallelism.
+The model supports execution on heterogeneous computing platforms using a single unified codebase, with parallel behavior selected at compile time via the Makefile.
+1. Code Structure
+code/
+Contains the original UFDECOM-i source code.
+No source-level modifications are required to switch between serial, CPU-parallel, and GPU-parallel executions.
 
+Makefile
+Controls compilation and target platform selection.
+Detailed comments are included in the Makefile to guide users in choosing the desired execution mode.
+
+2. Compilation Environment
+Compiler: NVIDIA NVFORTRAN
+Required Features:
+Fortran 2008 DO CONCURRENT
+Standard parallelism (-stdpar)
+Optional OpenACC for explicit data management (GPUA mode)
+
+3. Build Configurations Parallel execution modes are selected by configuring the FC variable in the Makefile. 
+3.1 Multi-core CPU Version (MC-UFDECOM-i) # MC-UFDECOM-i Configuration: FC = nvfortran -Mpreprocess -O4 -stdpar=multicore Uses standard Fortran DO CONCURRENT 
+for shared-memory parallelism Suitable for multi-core CPU platforms No GPU required Executable name: EXEC = UFDE_MC 
+3.2 GPU Version with Unified Memory (GPU-UFDECOM-i) # GPU-UFDECOM-i Configuration: #FC = nvfortran -Mpreprocess -stdpar=gpu Offloads 
+DO CONCURRENT kernels to GPU Relies on compiler-managed unified memory Requires no explicit data directives Maximizes code portability but may not achieve peak GPU performance 
+Executable name (recommended): #EXEC = UFDE_G 3.3 GPU Version with Explicit Data Management (GPUA-UFDECOM-i) This mode augments the same DO CONCURRENT kernels with lightweight OpenACC 
+data directives to optimize host–device data transfers. 
+Platform 1 (Data-center GPU, e.g., NVIDIA A800) # GPUA-UFDECOM-i Configuration (Platform 1): #FC = nvfortran -Mpreprocess -stdpar=gpu -acc=gpu -gpu=nomanaged 
+Platform 2 (Consumer GPU, e.g., RTX 5070 Ti) # GPUA-UFDECOM-i Configuration (Platform 2): #FC = nvfortran -Mpreprocess -stdpar=gpu -acc=gpu -gpu=mem:separate 
+Explicit data management significantly improves GPU performance Recommended for production runs and long-term simulations Uses the same source code as MC and GPU versions 
+
+4. Executables UFDE_MC Multi-core CPU executable UFDE_G GPU executable (GPU or GPUA modes) Only one executable is generated per build. Switching execution modes requires recompilation only, not source code changes. 
+5. Test Cases and Experimental Data The four experimental test cases used in the paper (Exp1–Exp4), 
+including grids, boundary conditions, and forcing data, are available at:Google Drive https://drive.google.com/drive/folders/1Jh0w9P6U6tXrhcB2Z5wQLnDUjHu35UiJ 
+These datasets correspond exactly to the numerical experiments reported in the manuscript and can be used to reproduce all performance and accuracy results. 
+
+6. Notes on Reproducibility Absolute performance (runtime and speedup) depends on hardware characteristics, particularly: CPU single-core performance GPU memory bandwidth 
+and capacity Relative performance trends and scalability behavior are consistent across platforms. For optimal GPU performance on current hardware, 
+explicit data management (GPUA mode) is strongly recommended. 7. Citation If you use this code or the associated datasets, 
+please cite the corresponding publication describing the UFDECOM-i parallelization framework.
